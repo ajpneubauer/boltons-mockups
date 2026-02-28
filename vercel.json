@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/mockups-v6.html" },
+    { "source": "/v6", "destination": "/mockups-v6.html" },
+    { "source": "/v5", "destination": "/mockups-v5.html" },
+    { "source": "/v4", "destination": "/mockups-v4.html" },
+    { "source": "/v3", "destination": "/mockups-v3.html" },
+    { "source": "/v2", "destination": "/mockups-v2.html" },
+    { "source": "/v1", "destination": "/mockups.html" }
+  ]
+}

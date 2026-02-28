@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books — Boltons Media</title>
+  <meta name="description" content="Curated books on economics, technology, politics, and more.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'Cormorant Garamond', Georgia, serif;
+      --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BOLTONS</a>
+      <ul class="nav-links">
+        <li><a href="books.html" class="active">Books</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="#authors">Authors</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+        <button class="nav-cta">Subscribe</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header" style="padding-top: calc(80px + 4rem);">
+    <h1 class="page-title">Books</h1>
+    <p class="page-description">Carefully curated books on economics, technology, politics, and innovation. From AI-generated research reports to timeless classics by leading thinkers.</p>
+  </header>
+
+  <!-- Books Section -->
+  <section class="section">
+    <div class="categories">
+      <button class="category-pill active">All Books</button>
+      <button class="category-pill">Economics</button>
+      <button class="category-pill">Technology</button>
+      <button class="category-pill">Politics</button>
+      <button class="category-pill">Innovation</button>
+      <button class="category-pill">AI-Generated</button>
+      <button class="category-pill">Human Written</button>
+    </div>
+
+    <div class="content-grid content-grid-featured">
+      <article class="card">
+        <a href="book-coffee-market.html" style="text-decoration: none; color: inherit;">
+          <div class="card-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 2rem;">
+            <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">Why the Coffee<br>Market Is Dead</div>
+            <div style="font-size: 0.6875rem; margin-top: 1rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7;">Sir Alexander Boltons</div>
+          </div>
+          <div class="card-badge card-badge-hybrid">Hybrid</div>
+          <div class="card-type">📚</div>
+          <div class="card-content">
+            <div class="card-category">Economics</div>
+            <h3 class="card-title">Why the Coffee Market Is Dead</h3>
+            <p class="card-author">Sir Alexander Boltons</p>
+            <div class="card-meta">
+              <span>288 pages</span>
+              <span>★ 4.9</span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The Ages of Globalization</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">The Ages of Globalization</h3>
+          <p class="card-author">Jeffrey D. Sachs</p>
+          <div class="card-meta">
+            <span>320 pages</span>
+            <span>★ 4.8</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">AI Revolution in Finance</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Boltons Research</div>
+        </div>
+        <div class="card-badge card-badge-ai">AI-Generated</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Technology</div>
+          <h3 class="card-title">AI Revolution in Finance</h3>
+          <p class="card-author">Boltons Research Team</p>
+          <div class="card-meta">
+            <span>180 pages</span>
+            <span>★ 4.5</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The Price of Tomorrow</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Jeff Booth</div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Innovation</div>
+          <h3 class="card-title">The Price of Tomorrow</h3>
+          <p class="card-author">Jeff Booth</p>
+          <div class="card-meta">
+            <span>240 pages</span>
+            <span>★ 4.7</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The Power of Geography</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Tim Marshall</div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Politics</div>
+          <h3 class="card-title">The Power of Geography</h3>
+          <p class="card-author">Tim Marshall</p>
+          <div class="card-meta">
+            <span>360 pages</span>
+            <span>★ 4.6</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The End of Poverty</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">The End of Poverty</h3>
+          <p class="card-author">Jeffrey D. Sachs</p>
+          <div class="card-meta">
+            <span>416 pages</span>
+            <span>★ 4.7</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">Common Wealth</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">Common Wealth</h3>
+          <p class="card-author">Jeffrey D. Sachs</p>
+          <div class="card-meta">
+            <span>400 pages</span>
+            <span>★ 4.5</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #533483 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">Building the New Economy</div>
+          <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.7;">Boltons AI</div>
+        </div>
+        <div class="card-badge card-badge-ai">AI-Generated</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Technology</div>
+          <h3 class="card-title">Building the New Economy</h3>
+          <p class="card-author">AI Research Team</p>
+          <div class="card-meta">
+            <span>150 pages</span>
+            <span>★ 4.3</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2 class="newsletter-title">Get Book Recommendations</h2>
+    <p class="newsletter-text">Join thousands of readers receiving curated book lists every week.</p>
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email">
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BOLTONS</div>
+          <p class="footer-tagline">Premium knowledge for the intellectually curious.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Content</h4>
+          <ul class="footer-links">
+            <li><a href="books.html">Books</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="podcasts.html">Podcasts</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Boltons Media. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

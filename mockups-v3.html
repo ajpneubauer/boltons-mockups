@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boltons — Premium Knowledge Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+            background: #FFFFFF;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100vh;
+            background: #FFFFFF;
+            border-right: 1px solid #D1D5DB;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar.collapsed .nav-text,
+        .sidebar.collapsed .search-input,
+        .sidebar.collapsed .user-name {
+            display: none;
+        }
+
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+        }
+
+        /* Logo */
+        .logo {
+            padding: 32px 24px 24px;
+            border-bottom: 1px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-family: "Didot", "Bodoni MT", Georgia, serif;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            transition: opacity 0.3s;
+        }
+
+        .toggle-btn {
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .toggle-btn:hover {
+            background: #F0F0F0;
+        }
+
+        /* Search */
+        .search-bar {
+            padding: 20px 24px;
+            border-bottom: 1px solid #D1D5DB;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #3E2723;
+        }
+
+        /* Navigation */
+        .nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            background: #F9F9F9;
+            color: #000;
+        }
+
+        .nav-item.active {
+            background: #F0F0F0;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .nav-text {
+            font-size: 14px;
+        }
+
+        /* User Profile */
+        .user-profile {
+            padding: 20px 24px;
+            border-top: 1px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 260px;
+            padding: 40px 60px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: 60px;
+        }
+
+        /* Carousel Section */
+        .carousel-section {
+            margin-bottom: 60px;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #D1D5DB;
+        }
+
+        .carousel-title {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .view-all {
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .view-all:hover {
+            color: #3E2723;
+        }
+
+        /* Carousel Container */
+        .carousel-container {
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            gap: 16px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-bottom: 20px;
+        }
+
+        /* Navigation Arrows */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #E0E0E0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10;
+        }
+
+        .carousel-container:hover .carousel-nav {
+            opacity: 1;
+        }
+
+        .carousel-nav:hover {
+            background: #FFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .carousel-nav.left {
+            left: -20px;
+        }
+
+        .carousel-nav.right {
+            right: -20px;
+        }
+
+        /* Progress Indicators */
+        .carousel-progress {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 2px;
+            background: #DDD;
+            border-radius: 1px;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #3E2723;
+            width: 24px;
+        }
+
+        /* ARTICLE CARDS (Current refined style) */
+        .card-article {
+            flex: 0 0 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card-article:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .card-article-image {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .card-article-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .card-article-title-overlay {
+            font-family: "Didot", Georgia, serif;
+            font-size: 22px;
+            font-weight: 400;
+            color: #FFF;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .card-article-author-overlay {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card-article-info {
+            background: #FFF;
+            padding: 16px;
+        }
+
+        .card-article-category {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .card-article-title {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-article-author {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .card-article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* BOOK CARDS (Kindle Store style - vertical) */
+        .card-book {
+            flex: 0 0 200px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-book:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-book-cover {
+            width: 200px;
+            height: 300px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px 20px;
+            color: #FFF;
+        }
+
+        .card-book-title {
+            font-family: "Didot", Georgia, serif;
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .card-book-author-cover {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card-book-info {
+            text-align: left;
+        }
+
+        .card-book-title-text {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-book-author-text {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .card-book-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* PODCAST CARDS (Apple Podcasts style - square artwork) */
+        .card-podcast {
+            flex: 0 0 240px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-podcast:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-podcast-artwork {
+            width: 240px;
+            height: 240px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: #FFF;
+        }
+
+        .card-podcast-info {
+            text-align: left;
+        }
+
+        .card-podcast-episode {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-podcast-show {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .card-podcast-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* PEOPLE CARDS (Spotify Artist style - circular) */
+        .card-person {
+            flex: 0 0 180px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-person:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-person-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: #FFF;
+        }
+
+        .card-person-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-person-role {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .card-person-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* COMPANY CARDS (Logo-based) */
+        .card-company {
+            flex: 0 0 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-company:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-company-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .card-company-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-company-industry {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .card-company-meta {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Add Content Card */
+        .card-add {
+            flex: 0 0 280px;
+            height: 380px;
+            border: 2px dashed #D1D5DB;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #FFFFFF;
+        }
+
+        .card-add:hover {
+            border-color: #3E2723;
+            background: #F9F9F9;
+        }
+
+        .card-add-icon {
+            font-size: 48px;
+            font-weight: 200;
+            color: #CCC;
+            transition: color 0.2s;
+        }
+
+        .card-add:hover .card-add-icon {
+            color: #3E2723;
+        }
+
+        /* Smaller add cards for different content types */
+        .card-add-book {
+            flex: 0 0 200px;
+            height: 300px;
+        }
+
+        .card-add-podcast {
+            flex: 0 0 240px;
+            height: 240px;
+        }
+
+        .card-add-person {
+            flex: 0 0 180px;
+            height: 180px;
+            border-radius: 50%;
+        }
+
+        .card-add-company {
+            flex: 0 0 200px;
+            height: 200px;
+        }
+
+        /* Gradient variations - muted, sophisticated palette */
+        .gradient-1 { background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 100%); }
+        .gradient-2 { background: linear-gradient(135deg, #8B7355 0%, #5D4E37 100%); }
+        .gradient-3 { background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%); }
+        .gradient-4 { background: linear-gradient(135deg, #78716C 0%, #57534E 100%); }
+        .gradient-5 { background: linear-gradient(135deg, #92400E 0%, #78350F 100%); }
+        .gradient-6 { background: linear-gradient(135deg, #525252 0%, #404040 100%); }
+        .gradient-7 { background: linear-gradient(135deg, #A78A7F 0%, #8B6F5F 100%); }
+        .gradient-8 { background: linear-gradient(135deg, #6C6C6C 0%, #505050 100%); }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <span class="logo-text">BOLTONS</span>
+            <span class="toggle-btn" onclick="toggleSidebar()">☰</span>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Find...">
+        </div>
+
+        <div class="nav">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">●</span>
+                <span class="nav-text">My Feed</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Articles / Journals</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Commentaries</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Books</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Podcasts</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">People</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Companies</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Conferences</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Earnings Calls</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Events</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Rules</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Support</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">○</span>
+                <span class="nav-text">Settings</span>
+            </a>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar">AN</div>
+            <div class="user-name">ajpneubauer</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        
+        <!-- CAROUSEL 1: AI & Innovation (Articles) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">AI & Innovation</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel1', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel1', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel1">
+                    <div class="card-add">
+                        <div class="card-add-icon">+</div>
+                    </div>
+                    
+                    <div class="card-article">
+                        <div class="card-article-image gradient-1">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">The Quantum Computing Revolution</div>
+                            <div class="card-article-author-overlay">Sarah Chen</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Technology</div>
+                            <div class="card-article-title">The Quantum Computing Revolution</div>
+                            <div class="card-article-author">Sarah Chen</div>
+                            <div class="card-article-meta">
+                                <span>18 min read</span>
+                                <span>★ 4.7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-2">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">CRISPR 2.0</div>
+                            <div class="card-article-author-overlay">Dr. Emily White</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Innovation</div>
+                            <div class="card-article-title">CRISPR 2.0: Next Gen Gene Editing</div>
+                            <div class="card-article-author">Dr. Emily White</div>
+                            <div class="card-article-meta">
+                                <span>8 min read</span>
+                                <span>★ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-3">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">SpaceX vs. NASA</div>
+                            <div class="card-article-author-overlay">Michael Torres</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Space Tech</div>
+                            <div class="card-article-title">SpaceX vs. NASA: New Space Race</div>
+                            <div class="card-article-author">Michael Torres</div>
+                            <div class="card-article-meta">
+                                <span>10 min read</span>
+                                <span>★ 4.6</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-4">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">Battery Revolution</div>
+                            <div class="card-article-author-overlay">Rachel Kim</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Energy</div>
+                            <div class="card-article-title">The Battery Revolution Powering EVs</div>
+                            <div class="card-article-author">Rachel Kim</div>
+                            <div class="card-article-meta">
+                                <span>14 min read</span>
+                                <span>★ 4.9</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 2: Curated Books (Kindle style - vertical) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">Curated Books</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel2', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel2', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel2">
+                    <div class="card-add card-add-book">
+                        <div class="card-add-icon">+</div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-2">
+                            <div class="card-book-title">The Ages of Globalization</div>
+                            <div class="card-book-author-cover">Jeffrey Sachs</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-title-text">The Ages of Globalization</div>
+                            <div class="card-book-author-text">Jeffrey D. Sachs</div>
+                            <div class="card-book-meta">
+                                <span>320 pages</span>
+                                <span>★ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-5">
+                            <div class="card-book-title">AI Revolution in Finance</div>
+                            <div class="card-book-author-cover">Multiple Authors</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-title-text">AI Revolution in Finance</div>
+                            <div class="card-book-author-text">Boltons Research</div>
+                            <div class="card-book-meta">
+                                <span>180 pages</span>
+                                <span>★ 4.5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-3">
+                            <div class="card-book-title">The Price of Tomorrow</div>
+                            <div class="card-book-author-cover">Jeff Booth</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-title-text">The Price of Tomorrow</div>
+                            <div class="card-book-author-text">Jeff Booth</div>
+                            <div class="card-book-meta">
+                                <span>240 pages</span>
+                                <span>★ 4.7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-4">
+                            <div class="card-book-title">The Power of Geography</div>
+                            <div class="card-book-author-cover">Tim Marshall</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-title-text">The Power of Geography</div>
+                            <div class="card-book-author-text">Tim Marshall</div>
+                            <div class="card-book-meta">
+                                <span>360 pages</span>
+                                <span>★ 4.6</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-6">
+                            <div class="card-book-title">Shoe Dog</div>
+                            <div class="card-book-author-cover">Phil Knight</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-title-text">Shoe Dog</div>
+                            <div class="card-book-author-text">Phil Knight</div>
+                            <div class="card-book-meta">
+                                <span>386 pages</span>
+                                <span>★ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 3: Featured Podcasts (Square artwork) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">Featured Podcasts</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel3', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel3', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel3">
+                    <div class="card-add card-add-podcast">
+                        <div class="card-add-icon">+</div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-7">🎙️</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-episode">Building a Billion-Dollar Coffee Empire</div>
+                            <div class="card-podcast-show">Founder Stories with Howard Schultz</div>
+                            <div class="card-podcast-meta">45 min • ★ 4.9</div>
+                        </div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-8">🎧</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-episode">The Future of Global Health</div>
+                            <div class="card-podcast-show">Expert Insights with Dr. Tedros</div>
+                            <div class="card-podcast-meta">62 min • ★ 4.7</div>
+                        </div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-1">🔊</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-episode">Commodities Weekly: Oil, Gold & Beyond</div>
+                            <div class="card-podcast-show">Market Analysis</div>
+                            <div class="card-podcast-meta">28 min • ★ 4.5</div>
+                        </div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-2">🎙️</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-episode">The AI Revolution in Business</div>
+                            <div class="card-podcast-show">All-In Podcast</div>
+                            <div class="card-podcast-meta">82 min • ★ 4.8</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 4: Thought Leaders (Spotify Artist style - circular) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">Thought Leaders</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel4', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel4', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel4">
+                    <div class="card-add card-add-person">
+                        <div class="card-add-icon">+</div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-3">JH</div>
+                        <div class="card-person-name">Jensen Huang</div>
+                        <div class="card-person-role">CEO, NVIDIA</div>
+                        <div class="card-person-meta">12 articles</div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-2">JS</div>
+                        <div class="card-person-name">Jeffrey Sachs</div>
+                        <div class="card-person-role">Economist & Author</div>
+                        <div class="card-person-meta">8 articles</div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-5">PT</div>
+                        <div class="card-person-name">Peter Thiel</div>
+                        <div class="card-person-role">Founder, Palantir</div>
+                        <div class="card-person-meta">15 articles</div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-4">RD</div>
+                        <div class="card-person-name">Ray Dalio</div>
+                        <div class="card-person-role">Founder, Bridgewater</div>
+                        <div class="card-person-meta">22 articles</div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-6">EM</div>
+                        <div class="card-person-name">Elon Musk</div>
+                        <div class="card-person-role">CEO, Tesla & SpaceX</div>
+                        <div class="card-person-meta">18 articles</div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 5: Featured Companies (Logo-based) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">Featured Companies</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel5', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel5', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel5">
+                    <div class="card-add card-add-company">
+                        <div class="card-add-icon">+</div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">NVIDIA</div>
+                        <div class="card-company-name">NVIDIA</div>
+                        <div class="card-company-industry">Semiconductors • AI Computing</div>
+                        <div class="card-company-meta">14 articles</div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">TSLA</div>
+                        <div class="card-company-name">Tesla</div>
+                        <div class="card-company-industry">Automotive • Clean Energy</div>
+                        <div class="card-company-meta">22 articles</div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">AAPL</div>
+                        <div class="card-company-name">Apple</div>
+                        <div class="card-company-industry">Consumer Electronics</div>
+                        <div class="card-company-meta">18 articles</div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">☕</div>
+                        <div class="card-company-name">Blue Bottle Coffee</div>
+                        <div class="card-company-industry">Consumer Staples • Coffee</div>
+                        <div class="card-company-meta">6 articles</div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">LVMH</div>
+                        <div class="card-company-name">LVMH</div>
+                        <div class="card-company-industry">Luxury Goods</div>
+                        <div class="card-company-meta">9 articles</div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 6: Economics & Markets (Articles) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-title">Economics & Markets</div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="carousel-container">
+                <div class="carousel-nav left" onclick="scrollCarousel('carousel6', -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel('carousel6', 1)">→</div>
+                <div class="carousel-wrapper" id="carousel6">
+                    <div class="card-add">
+                        <div class="card-add-icon">+</div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-6">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">De-Dollarization</div>
+                            <div class="card-article-author-overlay">James Rivera</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Economics</div>
+                            <div class="card-article-title">De-Dollarization: Myth or Reality?</div>
+                            <div class="card-article-author">James Rivera</div>
+                            <div class="card-article-meta">
+                                <span>15 min read</span>
+                                <span>★ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-7">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">The New Cold War</div>
+                            <div class="card-article-author-overlay">Alexandra Hunt</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Politics</div>
+                            <div class="card-article-title">The New Cold War: Tech & Trade</div>
+                            <div class="card-article-author">Alexandra Hunt</div>
+                            <div class="card-article-meta">
+                                <span>12 min read</span>
+                                <span>★ 4.7</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-8">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">Silent Luxury Boom</div>
+                            <div class="card-article-author-overlay">Sophie Laurent</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-category">Consumer</div>
+                            <div class="card-article-title">The Silent Luxury Boom</div>
+                            <div class="card-article-author">Sophie Laurent</div>
+                            <div class="card-article-meta">
+                                <span>6 min read</span>
+                                <span>★ 4.5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+
+        function scrollCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            const scrollAmount = 296;
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boltons Media — Premium Knowledge Platform</title>
+  <meta name="description" content="Netflix meets The Economist. A premium platform for books, articles, and podcasts that matter.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'Cormorant Garamond', Georgia, serif;
+      --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BOLTONS</a>
+      <ul class="nav-links">
+        <li><a href="books.html" class="active">Books</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="#authors">Authors</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+        <button class="nav-cta">Subscribe</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-label">Featured Book</div>
+        <h1 class="hero-title">Why the Coffee Market Is Dead</h1>
+        <p class="hero-subtitle">A provocative analysis of the commodity markets and the forces reshaping global trade. Essential reading for investors and policymakers.</p>
+        <div class="hero-meta">
+          <span>By Sir Alexander Boltons</span>
+          <span>•</span>
+          <span>12 min read</span>
+          <span>•</span>
+          <span>AI-Assisted Research</span>
+        </div>
+        <div class="hero-cta">
+          <a href="book-coffee-market.html" class="btn btn-primary">Read Now</a>
+          <button class="btn btn-secondary">Save for Later</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-image" style="background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); display: flex; align-items: center; justify-content: center;">
+          <div style="text-align: center; color: white; padding: 2rem;">
+            <div style="font-family: var(--font-primary); font-size: 2.5rem; font-style: italic; margin-bottom: 1rem;">Why the Coffee<br>Market Is Dead</div>
+            <div style="font-size: 0.875rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.7;">Sir Alexander Boltons</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Books Section -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Curated Books</h2>
+      <a href="books.html" class="section-link">View All →</a>
+    </div>
+    <div class="categories">
+      <button class="category-pill active">All</button>
+      <button class="category-pill">Economics</button>
+      <button class="category-pill">Technology</button>
+      <button class="category-pill">Politics</button>
+      <button class="category-pill">Innovation</button>
+    </div>
+    <div class="content-grid content-grid-featured">
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; color: white;">
+            <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The Ages of<br>Globalization</div>
+            <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.8;">Jeffrey Sachs</div>
+          </div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">The Ages of Globalization</h3>
+          <p class="card-author">Jeffrey D. Sachs</p>
+          <div class="card-meta">
+            <span>History • 320 pages</span>
+            <span>★ 4.8</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; color: white;">
+            <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">AI Revolution<br>in Finance</div>
+            <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.8;">Multiple Authors</div>
+          </div>
+        </div>
+        <div class="card-badge card-badge-ai">AI-Generated</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Technology</div>
+          <h3 class="card-title">AI Revolution in Finance</h3>
+          <p class="card-author">Boltons Research Team</p>
+          <div class="card-meta">
+            <span>Analysis • 180 pages</span>
+            <span>★ 4.5</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; color: white;">
+            <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">The Price of<br>Tomorrow</div>
+            <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.8;">Jeff Booth</div>
+          </div>
+        </div>
+        <div class="card-badge card-badge-hybrid">Hybrid</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Innovation</div>
+          <h3 class="card-title">The Price of Tomorrow</h3>
+          <p class="card-author">Jeff Booth</p>
+          <div class="card-meta">
+            <span>Technology • 240 pages</span>
+            <span>★ 4.7</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+          <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; color: white;">
+            <div style="font-family: var(--font-primary); font-size: 1.5rem; font-style: italic;">Geography of<br>Power</div>
+            <div style="font-size: 0.75rem; margin-top: 0.5rem; opacity: 0.8;">Tim Marshall</div>
+          </div>
+        </div>
+        <div class="card-badge">Human Written</div>
+        <div class="card-type">📚</div>
+        <div class="card-content">
+          <div class="card-category">Politics</div>
+          <h3 class="card-title">The Power of Geography</h3>
+          <p class="card-author">Tim Marshall</p>
+          <div class="card-meta">
+            <span>Geopolitics • 360 pages</span>
+            <span>★ 4.6</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Featured Articles Section -->
+  <section class="section section-alt">
+    <div class="section-header">
+      <h2 class="section-title">Latest Articles</h2>
+      <a href="articles.html" class="section-link">View All →</a>
+    </div>
+    
+    <div class="featured-row">
+      <article class="featured-main">
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);"></div>
+        <div class="featured-main-content">
+          <div class="card-badge card-badge-ai">AI-Assisted</div>
+          <div class="card-category">Innovation</div>
+          <h2 class="card-title">The Quantum Computing Revolution: What Investors Need to Know</h2>
+          <p class="card-author">By Sarah Chen • 18 min read</p>
+        </div>
+      </article>
+      
+      <div class="featured-side">
+        <article class="card">
+          <div class="card-image" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 4rem;">🧬</span>
+          </div>
+          <div class="card-badge card-badge-hybrid">Hybrid</div>
+          <div class="card-content">
+            <div class="card-category">Science</div>
+            <h3 class="card-title">CRISPR 2.0: The Next Generation of Gene Editing</h3>
+            <div class="card-meta">
+              <span>8 min read</span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="card">
+          <div class="card-image" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 4rem;">🏛️</span>
+          </div>
+          <div class="card-badge">Human Written</div>
+          <div class="card-content">
+            <div class="card-category">Politics</div>
+            <h3 class="card-title">The New Cold War: Technology and Trade</h3>
+            <div class="card-meta">
+              <span>12 min read</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Consumer</div>
+          <h3 class="card-title">The Silent Luxury Boom</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Why understated elegance is winning over conspicuous consumption</p>
+          <div class="card-badge card-badge-ai" style="position: static; display: inline-block;">AI-Generated</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>6 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Tech</div>
+          <h3 class="card-title">SpaceX vs. NASA: The New Space Race</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">How private enterprise is reshaping space exploration</p>
+          <div class="card-badge" style="position: static; display: inline-block;">Human Written</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>10 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">De-Dollarization: Myth or Reality?</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Examining the global shift away from USD dominance</p>
+          <div class="card-badge card-badge-hybrid" style="position: static; display: inline-block;">Hybrid</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>15 min read</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Podcasts Section -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Featured Podcasts</h2>
+      <a href="podcasts.html" class="section-link">View All →</a>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <article class="podcast-card">
+        <div class="podcast-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 3rem;">🎙️</span>
+        </div>
+        <div class="podcast-content">
+          <div class="card-category">Founder Stories</div>
+          <h3 class="podcast-title">Building a Billion-Dollar Coffee Empire</h3>
+          <p class="podcast-guest">With Howard Schultz</p>
+          <div class="podcast-meta">
+            <span>45 min</span>
+            <span>•</span>
+            <span>Human Interview</span>
+          </div>
+        </div>
+        <div class="podcast-play">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </article>
+
+      <article class="podcast-card">
+        <div class="podcast-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 3rem;">🎧</span>
+        </div>
+        <div class="podcast-content">
+          <div class="card-category">Expert Insights</div>
+          <h3 class="podcast-title">The Future of Global Health</h3>
+          <p class="podcast-guest">With Dr. Tedros Adhanom</p>
+          <div class="podcast-meta">
+            <span>62 min</span>
+            <span>•</span>
+            <span>Hybrid Production</span>
+          </div>
+        </div>
+        <div class="podcast-play">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </article>
+
+      <article class="podcast-card">
+        <div class="podcast-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center;">
+          <span style="font-size: 3rem;">🔊</span>
+        </div>
+        <div class="podcast-content">
+          <div class="card-category">Market Analysis</div>
+          <h3 class="podcast-title">Commodities Weekly: Oil, Gold & Beyond</h3>
+          <p class="podcast-guest">AI-Generated Market Roundup</p>
+          <div class="podcast-meta">
+            <span>28 min</span>
+            <span>•</span>
+            <span>AI-Narrated</span>
+          </div>
+        </div>
+        <div class="podcast-play">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Jeffrey Sachs Recommendations -->
+  <section class="section section-alt">
+    <div class="section-header">
+      <h2 class="section-title">Jeffrey Sachs Recommends</h2>
+      <a href="#" class="section-link">View Profile →</a>
+    </div>
+    <p style="color: var(--color-text-secondary); margin-bottom: 2rem; max-width: 600px;">The renowned economist shares his essential reading list for understanding our interconnected world.</p>
+    
+    <div class="content-grid">
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.25rem; font-style: italic;">The End of Poverty</div>
+          <div style="font-size: 0.75rem; margin-top: 0.25rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <p class="card-author">"Essential for understanding development"</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.25rem; font-style: italic;">Common Wealth</div>
+          <div style="font-size: 0.75rem; margin-top: 0.25rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-content">
+          <div class="card-category">Economics</div>
+          <p class="card-author">"Sustainable development for all"</p>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-image" style="background: linear-gradient(135deg, #533483 0%, #16213e 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; color: white;">
+          <div style="font-family: var(--font-primary); font-size: 1.25rem; font-style: italic;">The Ages of Globalization</div>
+          <div style="font-size: 0.75rem; margin-top: 0.25rem; opacity: 0.7;">Jeffrey Sachs</div>
+        </div>
+        <div class="card-content">
+          <div class="card-category">History</div>
+          <p class="card-author">"Seven ages of human history"</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2 class="newsletter-title">The Weekly Briefing</h2>
+    <p class="newsletter-text">Curated insights on economics, technology, and global affairs. Delivered every Monday morning.</p>
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email">
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BOLTONS</div>
+          <p class="footer-tagline">Premium knowledge for the intellectually curious. Books, articles, and podcasts that matter.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Content</h4>
+          <ul class="footer-links">
+            <li><a href="books.html">Books</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="podcasts.html">Podcasts</a></li>
+            <li><a href="#">Authors</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Boltons Media. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#">Twitter</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

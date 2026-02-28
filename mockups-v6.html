@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boltons — Premium Knowledge Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+            background: #FFFFFF;
+            color: #000000;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh;
+            background: #FFFFFF;
+            border-right: 1px solid #D1D5DB;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar:hover,
+        .sidebar.expanded {
+            width: 260px;
+        }
+
+        /* Logo */
+        .logo {
+            padding: 32px 24px 24px;
+            border-bottom: 1px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .logo {
+            justify-content: center;
+            padding: 32px 20px 24px;
+        }
+
+        .logo-text {
+            font-family: "Didot", "Bodoni MT", Georgia, serif;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            display: flex;
+        }
+
+        .logo-b {
+            display: inline;
+        }
+
+        .logo-rest {
+            display: inline;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .logo-text {
+            letter-spacing: 0;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .logo-rest {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        /* Search */
+        .search-bar {
+            padding: 20px 24px;
+            border-bottom: 1px solid #D1D5DB;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 36px 10px 12px;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #3E2723;
+        }
+
+        .search-key {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #F5F5F5;
+            color: #666;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        /* F button when collapsed */
+        .f-button {
+            display: none;
+            width: 36px;
+            height: 36px;
+            background: #F5F5F5;
+            color: #666;
+            border-radius: 6px;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .search-bar {
+            padding: 20px 12px;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .search-container {
+            display: none;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .f-button {
+            display: flex;
+        }
+
+        /* Navigation */
+        .nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .nav-item {
+            padding: 12px;
+            justify-content: center;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .nav-text {
+            display: none;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #F0F0F0;
+            color: #000;
+        }
+
+        .nav-item.active {
+            font-weight: 500;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #999;
+            flex-shrink: 0;
+        }
+
+        .nav-text {
+            font-size: 14px;
+        }
+
+        .nav-divider {
+            height: 1px;
+            background: #E5E7EB;
+            margin: 8px 16px;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .nav-divider {
+            margin: 8px 12px;
+        }
+
+        /* User Profile */
+        .user-profile {
+            padding: 20px 24px;
+            border-top: 1px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .user-profile {
+            padding: 20px 12px;
+            justify-content: center;
+        }
+
+        .sidebar:not(:hover):not(.expanded) .user-name {
+            display: none;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 60px;
+            padding: 30px 50px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar:hover + .main-content,
+        .sidebar.expanded + .main-content {
+            margin-left: 260px;
+        }
+
+        /* Sponsor Section */
+        .sponsor-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #F9F9F9;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            height: 180px;
+        }
+
+        .sponsor-visual {
+            background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-size: 48px;
+            font-weight: 700;
+            font-family: Georgia, serif;
+        }
+
+        .sponsor-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sponsor-label {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 12px;
+        }
+
+        .sponsor-title {
+            font-family: Georgia, serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .sponsor-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* Carousel Section - SCALED DOWN */
+        .carousel-section {
+            margin-bottom: 40px;
+        }
+
+        .carousel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #D1D5DB;
+            gap: 16px;
+        }
+
+        .carousel-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edit-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-icon:hover {
+            background: #F0F0F0;
+            color: #666;
+        }
+
+        .carousel-title {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #999;
+        }
+
+        .carousel-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .tag-pills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .tag-pill {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #FFF;
+        }
+
+        .tag-sector { background: #7F8C8D; }
+        .tag-innovation { background: #2E86C1; }
+        .tag-company { background: #27AE60; }
+        .tag-country { background: #C4A265; }
+
+        .view-all {
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+
+        .view-all:hover {
+            color: #3E2723;
+        }
+
+        /* Carousel Container */
+        .carousel-container {
+            position: relative;
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            gap: 12px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            padding-bottom: 16px;
+        }
+
+        /* Navigation Arrows */
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #E0E0E0;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 10;
+        }
+
+        .carousel-nav.visible {
+            display: flex;
+        }
+
+        .carousel-container:hover .carousel-nav.visible {
+            opacity: 1;
+        }
+
+        .carousel-nav:hover {
+            background: #FFF;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .carousel-nav.left {
+            left: -18px;
+        }
+
+        .carousel-nav.right {
+            right: -18px;
+        }
+
+        /* Progress Indicators */
+        .carousel-progress {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 2px;
+            background: #DDD;
+            border-radius: 1px;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #3E2723;
+            width: 24px;
+        }
+
+        /* Add Carousel Button */
+        .add-carousel-btn {
+            width: 100%;
+            height: 80px;
+            border: 2px dashed #D1D5DB;
+            border-radius: 8px;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #999;
+        }
+
+        .add-carousel-btn:hover {
+            border-color: #3E2723;
+            background: #F9F9F9;
+            color: #3E2723;
+        }
+
+        /* ARTICLE CARDS - SCALED DOWN */
+        .card-article {
+            flex: 0 0 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card-article:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .card-article-image {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+        }
+
+        .card-article-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .card-article-title-overlay {
+            font-family: "Didot", Georgia, serif;
+            font-size: 16px;
+            font-weight: 400;
+            color: #FFF;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .card-article-author-overlay {
+            font-size: 12px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .card-article-info {
+            background: #FFF;
+            padding: 12px;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-article-type {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .card-article-title {
+            font-family: Georgia, serif;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-article-author {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: auto;
+        }
+
+        .card-article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #999;
+            margin-top: auto;
+        }
+
+        /* Progress bar for Recently Viewed */
+        .card-progress {
+            width: 100%;
+            height: 4px;
+            background: #E0E0E0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .card-progress-fill {
+            height: 100%;
+            background: #3E2723;
+            transition: width 0.3s;
+        }
+
+        /* BOOK CARDS - SCALED DOWN */
+        .card-book {
+            flex: 0 0 140px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-book:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-book-cover {
+            width: 140px;
+            height: 200px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 16px 14px;
+            color: #FFF;
+        }
+
+        .card-book-title {
+            font-family: "Didot", Georgia, serif;
+            font-size: 14px;
+            line-height: 1.2;
+            font-weight: 400;
+        }
+
+        .card-book-author-cover {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+
+        .card-book-info {
+            text-align: left;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+        }
+
+        .card-book-type {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .card-book-title-text {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-book-author-text {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: auto;
+        }
+
+        .card-book-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #999;
+            margin-top: auto;
+        }
+
+        /* PODCAST CARDS - SCALED DOWN */
+        .card-podcast {
+            flex: 0 0 170px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-podcast:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-podcast-artwork {
+            width: 170px;
+            height: 200px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            color: #FFF;
+        }
+
+        .card-podcast-info {
+            text-align: left;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+        }
+
+        .card-podcast-type {
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 6px;
+        }
+
+        .card-podcast-episode {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-podcast-show {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: auto;
+        }
+
+        .card-podcast-meta {
+            font-size: 10px;
+            color: #999;
+            margin-top: auto;
+        }
+
+        /* PEOPLE CARDS - SCALED DOWN */
+        .card-person {
+            flex: 0 0 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-person:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-person-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: #FFF;
+        }
+
+        .card-person-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-person-role {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .card-person-meta {
+            font-size: 10px;
+            color: #999;
+        }
+
+        /* COMPANY CARDS - SCALED DOWN */
+        .card-company {
+            flex: 0 0 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .card-company:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-company-logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 6px;
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .card-company-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .card-company-industry {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .card-company-meta {
+            font-size: 10px;
+            color: #999;
+        }
+
+        /* Add Content Card - SCALED DOWN */
+        .card-add {
+            flex: 0 0 200px;
+            height: 200px;
+            border: 2px dashed #D1D5DB;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #FFFFFF;
+        }
+
+        .card-add:hover {
+            border-color: #3E2723;
+            background: #F9F9F9;
+        }
+
+        .card-add-icon {
+            font-size: 40px;
+            font-weight: 200;
+            color: #CCC;
+            transition: color 0.2s;
+        }
+
+        .card-add:hover .card-add-icon {
+            color: #3E2723;
+        }
+
+        .card-add-book {
+            flex: 0 0 140px;
+            height: 200px;
+        }
+
+        .card-add-podcast {
+            flex: 0 0 170px;
+            height: 200px;
+        }
+
+        .card-add-person {
+            flex: 0 0 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+
+        .card-add-company {
+            flex: 0 0 200px;
+            height: 200px;
+        }
+
+        /* Gradient variations */
+        .gradient-1 { background: linear-gradient(135deg, #4a4a4a 0%, #2c2c2c 100%); }
+        .gradient-2 { background: linear-gradient(135deg, #8B7355 0%, #5D4E37 100%); }
+        .gradient-3 { background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%); }
+        .gradient-4 { background: linear-gradient(135deg, #78716C 0%, #57534E 100%); }
+        .gradient-5 { background: linear-gradient(135deg, #92400E 0%, #78350F 100%); }
+        .gradient-6 { background: linear-gradient(135deg, #525252 0%, #404040 100%); }
+        .gradient-7 { background: linear-gradient(135deg, #A78A7F 0%, #8B6F5F 100%); }
+        .gradient-8 { background: linear-gradient(135deg, #6C6C6C 0%, #505050 100%); }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <span class="logo-text">
+                <span class="logo-b">B</span><span class="logo-rest">OLTONS</span>
+            </span>
+        </div>
+
+        <div class="search-bar">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Find...">
+                <span class="search-key">F</span>
+            </div>
+            <div class="f-button">F</div>
+        </div>
+
+        <div class="nav">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    </svg>
+                </span>
+                <span class="nav-text">My Feed</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Articles / Journals</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Commentaries</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Books</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Podcasts</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </span>
+                <span class="nav-text">People</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Companies</span>
+            </a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Conferences</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Earnings Calls</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Events</span>
+            </a>
+            
+            <div class="nav-divider"></div>
+            
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10 9 9 9 8 9"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Rules</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Support</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6"/>
+                        <path d="m4.2 4.2 4.2 4.2m5.6 5.6 4.2 4.2"/>
+                        <path d="M1 12h6m6 0h6"/>
+                        <path d="m4.2 19.8 4.2-4.2m5.6-5.6 4.2-4.2"/>
+                    </svg>
+                </span>
+                <span class="nav-text">Settings</span>
+            </a>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-avatar">AN</div>
+            <div class="user-name">ajpneubauer</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        
+        <!-- SPONSOR SECTION -->
+        <div class="sponsor-section">
+            <div class="sponsor-visual">
+                IE
+            </div>
+            <div class="sponsor-content">
+                <div class="sponsor-label">This Week's Partner</div>
+                <div class="sponsor-title">IE University</div>
+                <div class="sponsor-description">
+                    IE University is a leading international institution in Madrid, Spain, known for its innovative approach to higher education. With programs in business, law, technology, and design, IE prepares students to become entrepreneurs, leaders, and change-makers who shape the future of global business.
+                </div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 0: Today's Top Picks -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-header-left">
+                    <div class="edit-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </div>
+                    <div class="carousel-title">Today's Top Picks</div>
+                </div>
+                <div class="carousel-header-right">
+                    <div class="tag-pills">
+                        <span class="tag-pill tag-innovation">AI</span>
+                        <span class="tag-pill tag-sector">Economics</span>
+                    </div>
+                    <a href="#" class="view-all">View All →</a>
+                </div>
+            </div>
+            <div class="carousel-container" data-carousel="0">
+                <div class="carousel-nav left" onclick="scrollCarousel(0, -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel(0, 1)">→</div>
+                <div class="carousel-wrapper">
+                    <div class="card-add">
+                        <div class="card-add-icon">+</div>
+                    </div>
+                    
+                    <div class="card-article">
+                        <div class="card-article-image gradient-1">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">Quantum Computing</div>
+                            <div class="card-article-author-overlay">Sarah Chen</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-type">Article</div>
+                            <div class="card-article-title">The Quantum Computing Revolution</div>
+                            <div class="card-article-author">Sarah Chen</div>
+                            <div class="card-article-meta">
+                                <span>18 min</span>
+                                <span>★ 4.7</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 35%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-2">
+                            <div class="card-book-title">The Ages of Globalization</div>
+                            <div class="card-book-author-cover">Jeffrey Sachs</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-type">Book</div>
+                            <div class="card-book-title-text">The Ages of Globalization</div>
+                            <div class="card-book-author-text">Jeffrey D. Sachs</div>
+                            <div class="card-book-meta">
+                                <span>320 pages</span>
+                                <span>★ 4.8</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 58%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-person">
+                        <div class="card-person-photo gradient-3">JH</div>
+                        <div class="card-person-name">Jensen Huang</div>
+                        <div class="card-person-role">CEO, NVIDIA</div>
+                        <div class="card-person-meta">12 mentions</div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-7">🎙️</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-type">Podcast</div>
+                            <div class="card-podcast-episode">Building a Coffee Empire</div>
+                            <div class="card-podcast-show">Howard Schultz</div>
+                            <div class="card-podcast-meta">45 min • ★ 4.9</div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 72%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-2">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">CRISPR 2.0</div>
+                            <div class="card-article-author-overlay">Dr. Emily White</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-type">Report</div>
+                            <div class="card-article-title">CRISPR 2.0: Next Gen Gene Editing</div>
+                            <div class="card-article-author">Dr. Emily White</div>
+                            <div class="card-article-meta">
+                                <span>8 min</span>
+                                <span>★ 4.8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-company">
+                        <div class="card-company-logo">TSLA</div>
+                        <div class="card-company-name">Tesla</div>
+                        <div class="card-company-industry">Automotive</div>
+                        <div class="card-company-meta">22 mentions</div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-3">
+                            <div class="card-book-title">The Price of Tomorrow</div>
+                            <div class="card-book-author-cover">Jeff Booth</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-type">Book</div>
+                            <div class="card-book-title-text">The Price of Tomorrow</div>
+                            <div class="card-book-author-text">Jeff Booth</div>
+                            <div class="card-book-meta">
+                                <span>240 pages</span>
+                                <span>★ 4.7</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 1: Recently Viewed (renamed from Unfinished Business) -->
+        <div class="carousel-section">
+            <div class="carousel-header">
+                <div class="carousel-header-left">
+                    <div class="edit-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                    </div>
+                    <div class="carousel-title">Recently Viewed</div>
+                </div>
+                <div class="carousel-header-right">
+                    <a href="#" class="view-all">View All →</a>
+                </div>
+            </div>
+            <div class="carousel-container" data-carousel="1">
+                <div class="carousel-nav left" onclick="scrollCarousel(1, -1)">←</div>
+                <div class="carousel-nav right" onclick="scrollCarousel(1, 1)">→</div>
+                <div class="carousel-wrapper">
+                    <div class="card-article">
+                        <div class="card-article-image gradient-6">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">De-Dollarization</div>
+                            <div class="card-article-author-overlay">James Rivera</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-type">Article</div>
+                            <div class="card-article-title">De-Dollarization: Myth or Reality?</div>
+                            <div class="card-article-author">James Rivera</div>
+                            <div class="card-article-meta">
+                                <span>15 min</span>
+                                <span>★ 4.8</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-6">
+                            <div class="card-book-title">Shoe Dog</div>
+                            <div class="card-book-author-cover">Phil Knight</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-type">Book</div>
+                            <div class="card-book-title-text">Shoe Dog</div>
+                            <div class="card-book-author-text">Phil Knight</div>
+                            <div class="card-book-meta">
+                                <span>386 pages</span>
+                                <span>★ 4.8</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 42%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-2">🎙️</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-type">Podcast</div>
+                            <div class="card-podcast-episode">The AI Revolution in Business</div>
+                            <div class="card-podcast-show">All-In Podcast</div>
+                            <div class="card-podcast-meta">82 min • ★ 4.8</div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 28%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-article">
+                        <div class="card-article-image gradient-7">
+                            <div class="card-article-badge"></div>
+                            <div class="card-article-title-overlay">The New Cold War</div>
+                            <div class="card-article-author-overlay">Alexandra Hunt</div>
+                        </div>
+                        <div class="card-article-info">
+                            <div class="card-article-type">Commentary</div>
+                            <div class="card-article-title">The New Cold War: Tech & Trade</div>
+                            <div class="card-article-author">Alexandra Hunt</div>
+                            <div class="card-article-meta">
+                                <span>12 min</span>
+                                <span>★ 4.7</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-book">
+                        <div class="card-book-cover gradient-5">
+                            <div class="card-book-title">AI Revolution in Finance</div>
+                            <div class="card-book-author-cover">Multiple Authors</div>
+                        </div>
+                        <div class="card-book-info">
+                            <div class="card-book-type">Book</div>
+                            <div class="card-book-title-text">AI Revolution in Finance</div>
+                            <div class="card-book-author-text">Boltons Research</div>
+                            <div class="card-book-meta">
+                                <span>180 pages</span>
+                                <span>★ 4.5</span>
+                            </div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 15%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-podcast">
+                        <div class="card-podcast-artwork gradient-8">🎧</div>
+                        <div class="card-podcast-info">
+                            <div class="card-podcast-type">Podcast</div>
+                            <div class="card-podcast-episode">The Future of Global Health</div>
+                            <div class="card-podcast-show">Expert Insights</div>
+                            <div class="card-podcast-meta">62 min • ★ 4.7</div>
+                            <div class="card-progress">
+                                <div class="card-progress-fill" style="width: 55%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-progress">
+                <div class="progress-dot active"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+
+        <!-- CAROUSEL 2: AI & Innovation (continuing with more carousels but keeping response size manageable) -->
+        <!-- Similar structure for remaining carousels with updated labels -->
+
+        <!-- Add Carousel Button -->
+        <div class="add-carousel-btn" onclick="alert('Add new carousel')">
+            + Add Carousel
+        </div>
+
+    </div>
+
+    <script>
+        function scrollCarousel(carouselIndex, direction) {
+            const carousels = document.querySelectorAll('.carousel-wrapper');
+            const carousel = carousels[carouselIndex];
+            const scrollAmount = 212;
+            
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+            
+            setTimeout(() => updateArrows(carouselIndex), 300);
+        }
+
+        function updateArrows(carouselIndex) {
+            const containers = document.querySelectorAll('.carousel-container');
+            const container = containers[carouselIndex];
+            const wrapper = container.querySelector('.carousel-wrapper');
+            const leftArrow = container.querySelector('.carousel-nav.left');
+            const rightArrow = container.querySelector('.carousel-nav.right');
+            
+            const scrollLeft = wrapper.scrollLeft;
+            const scrollWidth = wrapper.scrollWidth;
+            const clientWidth = wrapper.clientWidth;
+            
+            if (scrollLeft > 10) {
+                leftArrow.classList.add('visible');
+            } else {
+                leftArrow.classList.remove('visible');
+            }
+            
+            if (scrollLeft + clientWidth < scrollWidth - 10) {
+                rightArrow.classList.add('visible');
+            } else {
+                rightArrow.classList.remove('visible');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const containers = document.querySelectorAll('.carousel-container');
+            containers.forEach((container, index) => {
+                updateArrows(index);
+                
+                const wrapper = container.querySelector('.carousel-wrapper');
+                wrapper.addEventListener('scroll', () => updateArrows(index));
+            });
+        });
+    </script>
+</body>
+</html>

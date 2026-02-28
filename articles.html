@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles — Boltons Media</title>
+  <meta name="description" content="In-depth articles on innovation, technology, science, consumer trends, and politics.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-primary: 'Cormorant Garamond', Georgia, serif;
+      --font-secondary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">BOLTONS</a>
+      <ul class="nav-links">
+        <li><a href="books.html">Books</a></li>
+        <li><a href="articles.html" class="active">Articles</a></li>
+        <li><a href="podcasts.html">Podcasts</a></li>
+        <li><a href="#authors">Authors</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+        <button class="nav-cta">Subscribe</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header" style="padding-top: calc(80px + 4rem);">
+    <h1 class="page-title">Articles</h1>
+    <p class="page-description">In-depth analysis and commentary on the trends shaping our world. A blend of human insight and AI-powered research.</p>
+  </header>
+
+  <!-- Articles Section -->
+  <section class="section">
+    <div class="categories">
+      <button class="category-pill active">Latest</button>
+      <button class="category-pill">Innovation</button>
+      <button class="category-pill">Technology</button>
+      <button class="category-pill">Science</button>
+      <button class="category-pill">Consumer</button>
+      <button class="category-pill">Politics</button>
+      <button class="category-pill">AI-Generated</button>
+    </div>
+
+    <!-- Featured Article -->
+    <div class="featured-row" style="margin-bottom: 3rem;">
+      <article class="featured-main">
+        <a href="article-quantum.html" style="text-decoration: none; color: inherit;">
+          <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);"></div>
+          <div class="featured-main-content">
+            <div class="card-badge card-badge-ai">AI-Assisted</div>
+            <div class="card-category">Innovation</div>
+            <h2 class="card-title">The Quantum Computing Revolution: What Investors Need to Know</h2>
+            <p class="card-author">By Sarah Chen • 18 min read</p>
+          </div>
+        </a>
+      </article>
+      
+      <div class="featured-side">
+        <article class="card">
+          <div class="card-image" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 4rem;">🧬</span>
+          </div>
+          <div class="card-badge card-badge-hybrid">Hybrid</div>
+          <div class="card-content">
+            <div class="card-category">Science</div>
+            <h3 class="card-title">CRISPR 2.0: The Next Generation of Gene Editing</h3>
+            <div class="card-meta">
+              <span>8 min read</span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="card">
+          <div class="card-image" style="background: #f5f5f5; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 4rem;">🏛️</span>
+          </div>
+          <div class="card-badge">Human Written</div>
+          <div class="card-content">
+            <div class="card-category">Politics</div>
+            <h3 class="card-title">The New Cold War: Technology and Trade</h3>
+            <div class="card-meta">
+              <span>12 min read</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Articles Grid -->
+    <div class="content-grid">
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Consumer</div>
+          <h3 class="card-title">The Silent Luxury Boom</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Why understated elegance is winning over conspicuous consumption</p>
+          <div class="card-badge card-badge-ai" style="position: static; display: inline-block;">AI-Generated</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>6 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Tech</div>
+          <h3 class="card-title">SpaceX vs. NASA: The New Space Race</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">How private enterprise is reshaping space exploration</p>
+          <div class="card-badge" style="position: static; display: inline-block;">Human Written</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>10 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Economics</div>
+          <h3 class="card-title">De-Dollarization: Myth or Reality?</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Examining the global shift away from USD dominance</p>
+          <div class="card-badge card-badge-hybrid" style="position: static; display: inline-block;">Hybrid</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>15 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Innovation</div>
+          <h3 class="card-title">The AI Hardware Revolution</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Why chips are the new oil in the AI economy</p>
+          <div class="card-badge card-badge-ai" style="position: static; display: inline-block;">AI-Generated</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>8 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Politics</div>
+          <h3 class="card-title">Europe's Energy Independence</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">The long road away from Russian gas dependency</p>
+          <div class="card-badge" style="position: static; display: inline-block;">Human Written</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>14 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Science</div>
+          <h3 class="card-title">Fusion Energy: Finally Ready?</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Recent breakthroughs bring fusion power closer to reality</p>
+          <div class="card-badge card-badge-hybrid" style="position: static; display: inline-block;">Hybrid</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>16 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Consumer</div>
+          <h3 class="card-title">The Wellness Economy Explained</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">From meditation apps to longevity clinics</p>
+          <div class="card-badge card-badge-ai" style="position: static; display: inline-block;">AI-Generated</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>11 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Technology</div>
+          <h3 class="card-title">The Metaverse After the Hype</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">What's left after the bubble burst?</p>
+          <div class="card-badge" style="position: static; display: inline-block;">Human Written</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>9 min read</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-content" style="padding: 1.5rem;">
+          <div class="card-category">Innovation</div>
+          <h3 class="card-title">Vertical Farming's Promise and Peril</h3>
+          <p style="font-size: 0.875rem; margin: 0.5rem 0 1rem; color: var(--color-text-secondary);">Can technology solve food security?</p>
+          <div class="card-badge card-badge-hybrid" style="position: static; display: inline-block;">Hybrid</div>
+          <div class="card-meta" style="margin-top: 1rem;">
+            <span>13 min read</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2 class="newsletter-title">The Daily Brief</h2>
+    <p class="newsletter-text">Essential reading delivered to your inbox every morning. Analysis that matters.</p>
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email">
+      <button type="submit" class="newsletter-btn">Subscribe</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">BOLTONS</div>
+          <p class="footer-tagline">Premium knowledge for the intellectually curious.</p>
+        </div>
+        <div>
+          <h4 class="footer-heading">Content</h4>
+          <ul class="footer-links">
+            <li><a href="books.html">Books</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="podcasts.html">Podcasts</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Boltons Media. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
